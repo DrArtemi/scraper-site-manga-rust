@@ -14,8 +14,8 @@ impl Scraper {
     
         // Build browser client
         let client = ClientBuilder::native()
-        .capabilities(caps)
-        .connect("http://localhost:4444").await.expect("failed to connect to WebDriver");
+            .capabilities(caps)
+            .connect("http://localhost:4444").await.expect("failed to connect to WebDriver");
 
         // Return built Scraper structure
         Scraper {
