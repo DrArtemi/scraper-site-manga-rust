@@ -1,10 +1,8 @@
-use std::fmt::format;
-
 use fantoccini::{Locator};
 use async_trait::async_trait;
 
 use crate::manga_scraper::scraping_tools::Scraper;
-use crate::manga_scraper::models::{Comic, Chapter};
+use crate::spiders::models::{Comic, Chapter};
 
 use super::SpiderTrait;
 
@@ -42,11 +40,11 @@ impl SpiderTrait for MangaPlus {
             let cover_url: String = comic_link
                 .find(Locator::Css("img.AllTitle-module_image_JIEI9")).await.unwrap()
                 .attr("data-src").await.unwrap().expect(&format!("Comic cover url empty for {:?}.", title));
-            comics.push(Comic::new(
-                title,
-                comic_url,
-                cover_url
-            ));
+            comics.push(Comic {
+                title: title,
+                url: comic_url,
+                cover_url: cover_url
+            });
         }
 
         // Return object with url, cover url and title
@@ -74,11 +72,11 @@ impl SpiderTrait for MangaPlus {
                     .attr("href").await.unwrap().expect(&format!("Chapter url empty for {:?}.", number))
                     .rsplit_once('/').unwrap().1.to_string();
             let chapter_url = format!("{}/viewer/{}", self.url, chapter_id);
-            chapters.push(Chapter::new(
-                chapter_url,
-                number,
-                date
-            ));
+            chapters.push(Chapter {
+                url: chapter_url,
+                number: number,
+                date: date
+            });
         }
 
         chapters
