@@ -1,4 +1,7 @@
 mod manga_scraper;
+mod database;
+mod models;
+mod schema;
 
 use manga_scraper::spiders;
 

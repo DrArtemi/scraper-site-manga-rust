@@ -1,8 +1,9 @@
 pub mod mangaplus;
+mod models;
 
 use async_trait::async_trait;
 use crate::manga_scraper::scraping_tools::Scraper;
-use crate::manga_scraper::models::{Comic, Chapter};
+use models::{Comic, Chapter};
 
 #[async_trait]
 pub trait SpiderTrait {
